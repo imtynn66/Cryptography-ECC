@@ -23,11 +23,9 @@ else:
 print("double root:", double_root)
 print("single root:", single_root)
 
-# map G and Q to the new "shifted" curve
 Gx = (Gx - double_root)
 Qx = (Qx - double_root)
 
-# Transform G and Q into numbers g and q, such that q=g^n
 t = double_root - single_root
 t_sqrt = t.square_root()
 
@@ -39,7 +37,6 @@ q = transform(Qx, Qy, t_sqrt)
 print("g:", g)
 print("q:", q)
 
-# Find the private key n
 print("Factors of p-1:", factor(p-1))
 print("Calculating discrete log for g and q...")
 found_key = discrete_log(q, g)
@@ -47,3 +44,4 @@ print("Found private key:", found_key)
 
 from Crypto.Util.number import long_to_bytes
 print("The secret is:", long_to_bytes(found_key).decode())
+

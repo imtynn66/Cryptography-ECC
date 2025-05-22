@@ -10,12 +10,10 @@ class MyHash:
     def digest(self):
         return self.data
 
-# Sign the message and verify the signature
-message = "Please transfer 1,000$ to GitHub"
+message = "Please authorize a payment of $500 to Alice for consulting services."
 signature = signing_key.sign(message.encode(), hashfunc=MyHash)
 assert verifying_key.verify(signature, message.encode(), hashfunc=MyHash)
 
-# Construct an evil message and verify the original message's signature is valid for it as well
-evil_message = "Please transfer 1,000$ to GitHub and 1,000,000$ to Eli Kaski"
+evil_message = "Please authorize a payment of $500 to Alice and $100,000 to Mallory's offshore account."
 assert verifying_key.verify(signature, evil_message.encode(), hashfunc=MyHash)
 print("success!")

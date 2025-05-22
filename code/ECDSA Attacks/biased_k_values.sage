@@ -59,7 +59,7 @@ generator = generator_256
 q = int(generator_256.order())
 
 # Create private key and public key
-secret_key = 1793056234309773077862125006843383726029262764680727851636
+secret_key = 1968625387357113455866334198591500829044007499236131443183331743839536675268158315
 public_key = Public_key(generator, generator * secret_key)
 private_key = Private_key(public_key, secret_key)
 

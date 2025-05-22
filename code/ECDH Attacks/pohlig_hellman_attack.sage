@@ -15,4 +15,5 @@ print("Calculating discrete_log...")
 found_key = G.discrete_log(A)
 assert found_key * G == A
 assert private_key == found_key
+print(private_key)
 print("success!")
