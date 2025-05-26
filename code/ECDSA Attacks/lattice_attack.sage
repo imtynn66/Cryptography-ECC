@@ -21,19 +21,21 @@ def build_matrix(signatures, bias, q):
         row1.append((inverse_mod(s, q) * m) % q)
         row2.append((inverse_mod(s, q) * r) % q)
     top_rows = Matrix(QQ, [row1, row2])
-
     zero_cols = zero_matrix(QQ, len(signatures), 2)
     qI = q * identity_matrix(QQ, len(signatures))
     bottom_rows = block_matrix([[zero_cols, qI]])
     M = top_rows.stack(bottom_rows)
     return M
 def find_private_key(L, signatures, public_key):
+    # Check if any valid k was found in L
     generator = public_key.generator
     q = generator.order()
     for row in L.rows():
         for i in range(len(signatures)):
             m,r,s = signatures[i]
+            # Skip the first two vector components we used to improve LLL
             possible_k = row[i+2]
+            # LLL might have swapped the sign of the found short vectors
             for k in [possible_k, -possible_k]:
                 d = inverse_mod(r,q)*(k*s-m) % q
                 if d*generator == public_key.point:
@@ -41,14 +43,13 @@ def find_private_key(L, signatures, public_key):
 curve = curve_256
 generator = generator_256
 q = int(generator_256.order())
-secret_key = 1968625387357113455866334198591500829044007499236131443183331743839536675268158315
-
+secret_key = 1793056234309773077862125006843383726029262764680727851636
 public_key = Public_key(generator, generator * secret_key)
 private_key = Private_key(public_key, secret_key)
 messages_to_sign = [
-    "Using biased k values risks leaking secrets.",
-    "Nonce reuse breaks cryptographic security.",
-    "True randomness is key to safe signatures."
+    "And then I go and spoil it all",
+    "By saying somethin' stupid like",
+    "I love you"
 ]
 signatures = []
 for message in messages_to_sign:

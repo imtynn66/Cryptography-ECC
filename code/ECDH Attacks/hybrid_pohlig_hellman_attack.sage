@@ -40,7 +40,6 @@ for p, e in factors:
     subsolutions.append(k)
     subgroup.append(p ^ e) # k the order of G0
 
-print("Running CRT...")
 found_key = crt(subsolutions, subgroup)
 assert found_key * G == P
 assert private_key == found_key
